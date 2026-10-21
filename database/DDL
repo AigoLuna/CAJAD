@@ -1,0 +1,122 @@
+
+-- BANCO DE DADOS: CAJAD CONSTRUÇÕES
+-- DDL INICIAL
+
+
+-- 1. Colaboradores e usuários do sistema
+CREATE TABLE colaborador (
+    id_colaborador INTEGER GENERATED ALWAYS AS IDENTITY
+        PRIMARY KEY,
+    nome VARCHAR(120) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    perfil VARCHAR(20) NOT NULL
+        CHECK (perfil IN ('COLABORADOR', 'GESTOR')),
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- 2. Áreas de trabalho
+CREATE TABLE area_trabalho (
+    id_area INTEGER GENERATED ALWAYS AS IDENTITY
+        PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    ativa BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- 3. Cadastro de EPIs
+CREATE TABLE epi (
+    id_epi INTEGER GENERATED ALWAYS AS IDENTITY
+        PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    obrigatorio BOOLEAN NOT NULL DEFAULT TRUE,
+    ativo BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+-- 4. EPIs exigidos em cada área
+CREATE TABLE area_epi (
+    id_area INTEGER NOT NULL,
+    id_epi INTEGER NOT NULL,
+
+    PRIMARY KEY (id_area, id_epi),
+
+    FOREIGN KEY (id_area)
+        REFERENCES area_trabalho(id_area),
+
+    FOREIGN KEY (id_epi)
+        REFERENCES epi(id_epi)
+);
+
+-- 5. Checagens realizadas antes do trabalho
+CREATE TABLE checagem (
+    id_checagem INTEGER GENERATED ALWAYS AS IDENTITY
+        PRIMARY KEY,
+    id_colaborador INTEGER NOT NULL,
+    id_area INTEGER NOT NULL,
+    data_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) NOT NULL DEFAULT 'PENDENTE'
+        CHECK (status IN (
+            'PENDENTE',
+            'ENVIADA',
+            'VERIFICADA',
+            'NAO_CONFORME'
+        )),
+
+    FOREIGN KEY (id_colaborador)
+        REFERENCES colaborador(id_colaborador),
+
+    FOREIGN KEY (id_area)
+        REFERENCES area_trabalho(id_area)
+);
+
+-- 6. EPIs registrados em cada checagem
+CREATE TABLE checagem_epi (
+    id_checagem INTEGER NOT NULL,
+    id_epi INTEGER NOT NULL,
+    conforme BOOLEAN NOT NULL,
+    observacao TEXT,
+
+    PRIMARY KEY (id_checagem, id_epi),
+
+    FOREIGN KEY (id_checagem)
+        REFERENCES checagem(id_checagem),
+
+    FOREIGN KEY (id_epi)
+        REFERENCES epi(id_epi)
+);
+
+-- 7. Fotografias enviadas como comprovação
+CREATE TABLE registro_fotografico (
+    id_foto INTEGER GENERATED ALWAYS AS IDENTITY
+        PRIMARY KEY,
+    id_checagem INTEGER NOT NULL,
+    nome_arquivo VARCHAR(255) NOT NULL,
+    tipo_mime VARCHAR(100) NOT NULL,
+    arquivo BYTEA NOT NULL,
+    data_envio TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (id_checagem)
+        REFERENCES checagem(id_checagem)
+);
+
+-- 8. Auditorias e fiscalizações de segurança
+CREATE TABLE auditoria (
+    id_auditoria INTEGER GENERATED ALWAYS AS IDENTITY
+        PRIMARY KEY,
+    id_checagem INTEGER NOT NULL,
+    id_gestor INTEGER NOT NULL,
+    data_hora TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    resultado VARCHAR(20) NOT NULL
+        CHECK (resultado IN (
+            'CONFORME',
+            'NAO_CONFORME',
+            'PENDENTE'
+        )),
+    observacao TEXT,
+
+    FOREIGN KEY (id_checagem)
+        REFERENCES checagem(id_checagem),
+
+    FOREIGN KEY (id_gestor)
+        REFERENCES colaborador(id_colaborador)
+);
