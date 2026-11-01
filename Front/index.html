@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CAJAD Construções</title>
+
+    <meta name="description"
+          content="Portal CAJAD Construções para gestão de EPIs.">
+          <style> body { background-color: #f4f7f9; }
+          .logo{
+            position: fixed;
+            top:20px;
+            left: 20px;
+            width: 60px;
+            height: auto;
+            z-index:1000;
+
+            
+          } 
+
+         
+          
+/* Organiza os dois blocos lado a lado */
+.container-blocos {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+
+    position: absolute;
+    top: 360px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 95%;
+    max-width: 950px;
+}
+
+/* Aparência dos blocos */
+.bloco {
+    background-color: #ffffff;
+    border: 1px solid #d8e5ec;
+    border-radius: 27px;
+
+    padding: 25px;
+    box-sizing: border-box;
+
+    flex: 1;
+    min-width: 0;
+
+    box-shadow: 0 8px 25px rgba(0, 43, 69, 0.04);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.bloco:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px rgba(0, 43, 69, 0.12);
+}
+
+/* Sobe ao clicar */
+.bloco:active {
+    transform: translateY(-12px);
+}
+
+/* Quadrado que contém o símbolo */
+.icone {
+    width: 55px;
+    height: 55px;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 26px;
+    margin-bottom: 22px;
+}
+
+/* Cores dos símbolos */
+.icone-empresa {
+    background-color: #e7f3f8;
+    color: #176087;
+}
+
+.icone-funcionario {
+    background-color: #fff4d5;
+    color: #9a7000;
+}
+
+/* Títulos */
+.bloco h2 {
+    color: #192b3d;
+    font-size: 26px;
+    margin: 0 0 16px 0;
+}
+
+/* Descrições */
+.bloco p {
+    color: #647482;
+    font-size: 16px;
+    line-height: 1.35;
+    margin: 0 0 39px 0;
+}
+
+/* Botões */
+ .bloco button {
+    width: 100%;
+    min-height: 50px;
+
+    border: none;
+    border-radius: 15px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* Botão da empresa */
+.botao-empresa {
+    background-color: #196087;
+    color: white;
+}
+
+/* Botão do funcionário */
+.botao-funcionario {
+    background-color: #f5b51b;
+    color: #172b3e;
+}
+
+/* Efeito ao passar o mouse */
+.botao-empresa:hover {
+    background-color: #124c6c;
+}
+
+.botao-funcionario:hover {
+    background-color: #e3a30c;
+}
+
+.listra{
+    width: 400px;
+    height: auto;
+    position: absolute;
+    top: 3px;
+    right: 0px;
+}
+
+.listra_amarela{
+    width: 350px;
+    height: auto;
+    position: fixed;
+    left: 0px;
+    top: 450px;
+}
+
+.listra_topo {
+    width: 50px;
+    height: 4px;
+    background-color: #f5b51b;
+    border-radius: 10px;
+    margin: 0 auto 20px;
+    position: relative;
+    top: 150px;
+    left: 1px;
+}
+          
+          </style>
+
+
+
+
+</head>
+
+<body>
+
+     <!-- imagem do logo e nome da marca ao lado -->
+    <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
+    <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45; font-family: 'Montserrat', 'Arial', sans-serif;">CAJAD</b>
+
+    <h4 style="color: #065e6d; position:fixed; left: 690px; top: 150px;"> PORTAL CAJAD </h4>
+    <p style="color: #002b45; position:fixed; left: 560px; top: 150px; font-size: 50px;;"> CAJAD Construções </p>
+    <p style="color:gray; font-size: 20px; left: 460px; margin-top: 35vh; position:fixed;">Bem-vindo. Selecione abaixo o perfil que melhor representa o seu acesso à</p> 
+    <p style="color:gray; font-size: 20px; left: 690px; margin-top: 38vh; position:fixed;"> nossa plataforma.</p>
+
+
+    
+<div class="container-blocos">
+
+    <!-- Bloco da empresa -->
+    <div class="bloco">
+
+        <div class="icone icone-empresa">
+            🏢
+        </div>
+
+        <h2>Empresa</h2>
+
+        <p>
+            Acesse a gestão de locais e equipamentos
+            da CAJAD Construções.
+        </p>
+
+        <button class="botao-empresa" onclick="window.location.href='/login'">
+            Entrar como Empresa
+        </button>
+
+    </div> 
+
+
+
+    <!-- Bloco do funcionário -->
+    <div class="bloco">
+
+        <div class="icone icone-funcionario">
+            ☑
+        </div>
+
+        <h2>Funcionário</h2>
+
+        <p>
+            Consulte os locais cadastrados e confira
+            os equipamentos necessários para o trabalho.
+        </p>
+
+        <button class="botao-funcionario" onclick="window.location.href='/login_funci'">
+            Entrar como Funcionário
+        </button>
+
+    </div>
+
+</div>
+
+    <img width="400"; height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
+
+   <b style="position: fixed;
+right: 80px;
+top: 40px;
+background-color: #e6f2f6;
+color: #176087;
+border: none;
+border-radius: 18px;
+padding: 10px 16px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;">ACESSO INICIAL</b>
+
+        <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra cinza" class="listra_amarela">
+
+<div class="listra_topo"></div>
+
+    <!-- Texto final da página -->
+    <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
+
+    
+</body>
+</html>
+

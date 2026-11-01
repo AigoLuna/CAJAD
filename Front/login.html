@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAJAD Construções - Login</title>
+    <meta name="description" content="Página de login, gestão de EPIs.">
+    
+    <style>
+        body {
+            background-color: #f4f7f9;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 60px;
+            height: auto;
+            z-index: 1000;
+        }
+
+        .listra {
+            width: 400px;
+            height: auto;
+            position: absolute;
+            top: 3px;
+            right: 0px;
+            z-index: 1;
+        }
+
+        .listra_amarela {
+            width: 350px;
+            height: auto;
+            position: fixed;
+            left: 0px;
+            top: 450px;
+            z-index: 1;
+        }
+
+        /* Container centralizado para o formulário de login */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            max-width: 400px;
+            margin: 140px auto 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .login-container h2 {
+            color: #002b45;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #176087;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .btn-entrar {
+            width: 100%;
+            background-color: #176087;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-entrar:hover {
+            background-color: #002b45;
+        }
+
+
+        .btn-voltar {
+            position: fixed;
+            right: 80px;
+            top: 100px;
+            background-color: #e6f2f6;
+            color: #176087;
+            border: none;
+            border-radius: 18px;
+            padding: 10px 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .cadastro-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .cadastro-link a {
+            color: #176087;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cadastro-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Estilos dos botões do topo */
+        .topo-titulo {
+            position: fixed; 
+            top: 40px; 
+            left: 90px; 
+            z-index: 1000; 
+            color: #002b45;
+            font-size: 20px;
+        }
+
+        .btn-topo-direito {
+            position: fixed;
+            right: 80px;
+            top: 40px;
+            background-color: #e6f2f6;
+            color: #176087;
+            border: none;
+            border-radius: 18px;
+            padding: 10px 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1000;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Elementos visuais e identidade visual da CAJAD -->
+     <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
+    <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
+
+    <img width="400" height="300" src="{{ url_for('static', filename='imagens/listra_cinza.png') }}" alt="Listra cinza" class="listra">
+    <img src="{{ url_for('static', filename='imagens/listra_amarela.png') }}" alt="Listra amarela" class="listra_amarela">
+
+    <!-- Botão do topo -->
+    <div class="btn-topo-direito">
+        LOGIN DO SISTEMA
+    </div>
+
+    <button onclick="window.location.href='/'" class="btn-voltar">
+        Voltar ao início
+    </button>
+
+    <!-- Formulário de Login -->
+    <div class="login-container">
+        <h2>Entrar no Sistema</h2>
+        
+       <form action="/login" method="POST">
+    <!-- Força o tipo como 'empresa' nesta tela para nunca haver erro -->
+    <input type="hidden" name="tipo" value="empresa">
+
+    <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" required placeholder="seuemail@cajad.com">
+    </div>
+    
+    <div class="form-group">
+        <label for="senha">Senha:</label>
+        <input type="password" id="senha" name="senha" required placeholder="Sua senha secreta">
+    </div>
+    
+    <button type="submit" class="btn-entrar">Entrar</button>
+</form>
+        
+        <div class="cadastro-link">
+            Não tem uma conta? <a href="/cadastro">Cadastre-se aqui</a>
+        </div>
+    </div>
+
+        <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAJAD Construções</title>
+
+    <meta name="description" content="Página da empresa, gestão de EPIs.">
+    <style> body { background-color: #f4f7f9; }
+
+
+
+    .logo{
+            position: fixed;
+            top:20px;
+            left: 20px;
+            width: 60px;
+            height: auto;
+            z-index:1000;
+
+            
+        } 
+
+    .listra{
+            width: 400px;
+            height: auto;
+            position: absolute;
+            top: 3px;
+            right: 0px;
+        }
+
+    .listra_amarela{
+            width: 350px;
+            height: auto;
+            position: fixed;
+            left: 0px;
+            top: 450px;
+        }   
+
+    
+
+
+</style>
+</head>
+<body>
+
+    <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
+    <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
+
+
+    <img width="400"; height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
+    <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra cinza" class="listra_amarela">
+
+
+    <b style="position: fixed;
+right: 80px;
+top: 40px;
+background-color: #e6f2f6;
+color: #176087;
+border: none;
+border-radius: 18px;
+padding: 10px 16px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;">CHECKLIST FUNCIONÁRIO
+</b>
+
+
+    <button onclick="window.location.href='/'"
+style="position: fixed;
+right: 80px;
+top: 100px;
+background-color: #e6f2f6;
+color: #176087;
+border: none;
+border-radius: 18px;
+padding: 10px 16px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;">
+    Voltar ao início
+</button>
+
+    </div>
+
+    <p style="color:green; font-weight: bold; transform: translatey(100px); margin-left: 25px;
+"> CAJAD CONSTRUÇÕES</p>
+
+    <h1 style="color:rgb(9, 39, 85); font-weight: bold; transform: translatey(75px); margin-left: 20px; font-size: 34px; font-family: 'Playfair Display', serif;">Checklist do Funcionário</h1>
+
+    <p style="color:rgb(135, 137, 141); font-weight: bold; transform: translatey(65px); margin-left: 20px; font-size: 17px; font-family: 'Playfair Display', serif;">Consulte os locais disponíveis e confira os equipamentos necessários antes de iniciar as atividades.</p>
+
+    <h2 style="color:rgb(0, 0, 0);  transform: translatey(65px); margin-left: 20px; font-size: 30px; font-family: 'Playfair Display', serif;">Locais disponíveis</h2>
+
+    <p style="color:rgb(135, 137, 141); font-weight: bold; transform: translatey(45px); margin-left: 20px; font-size: 17px; font-family: 'Playfair Display', serif;">Abra um local para conferir os equipamentos cadastrados pela empresa.
+
+</p>
+
+    <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
+
+
+
+
+</body>
+</html>

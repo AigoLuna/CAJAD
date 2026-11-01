@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAJAD Construções</title>
+
+    <meta name="description" content="Página da empresa, gestão de EPIs.">
+    <style> body { background-color: #f4f7f9; }
+
+    .logo{
+            position: fixed;
+            top:20px;
+            left: 20px;
+            width: 60px;
+            height: auto;
+            z-index:1000;
+
+            
+        } 
+
+    .listra{
+            width: 400px;
+            height: auto;
+            position: absolute;
+            top: 3px;
+            right: 0px;
+        }
+
+    .listra_amarela{
+            width: 350px;
+            height: auto;
+            position: fixed;
+            left: 0px;
+            top: 450px;
+        }   
+
+    
+
+
+</style>
+</head>
+<body>
+
+    <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
+    <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
+
+
+    <img width="400"; height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
+    <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra cinza" class="listra_amarela">
+
+
+    <b style="position: fixed;
+right: 80px;
+top: 40px;
+background-color: #e6f2f6;
+color: #176087;
+border: none;
+border-radius: 18px;
+padding: 10px 16px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;">CHECKLIST FUNCIONÁRIO</b>
+
+
+    <button onclick="window.location.href='/'"
+style="position: fixed;
+right: 80px;
+top: 100px;
+background-color: #e6f2f6;
+color: #176087;
+border: none;
+border-radius: 18px;
+padding: 10px 16px;
+font-size: 16px;
+font-weight: bold;
+cursor: pointer;">
+    Voltar ao início
+</button>
+
+    </div>
+
+        <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
+
+
+</body>
+</html>
+
+
+
