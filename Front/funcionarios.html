@@ -1,8 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
@@ -11,101 +9,799 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAJAD Construções</title>
 
-    <meta name="description" content="Página da empresa, gestão de EPIs.">
-    <style> body { background-color: #f4f7f9; }
+    <meta name="description" content="Página do funcionário, gestão de EPIs.">
+    <style>
+        body { 
+            background-color: #f4f7f9; 
+            margin: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 20px;
+        }
 
-
-
-    .logo{
-            position: fixed;
-            top:20px;
+        .logo {
+            position: absolute;
+            top: 20px;
             left: 20px;
             width: 60px;
             height: auto;
-            z-index:1000;
-
-            
+            z-index: 1000;
         } 
 
-    .listra{
-            width: 400px;
-            height: auto;
-            position: absolute;
-            top: 3px;
-            right: 0px;
+        .texto-cajad-logo {
+            position: absolute; 
+            top: 40px; 
+            left: 90px; 
+            z-index: 1000; 
+            color: #002b45;
+            font-weight: bold;
+            font-size: 18px;
         }
 
-    .listra_amarela{
+        .listra {
+            width: 400px;
+            height: auto;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .listra_amarela {
             width: 350px;
             height: auto;
             position: fixed;
             left: 0px;
             top: 450px;
-        }   
+            z-index: -1;
+            pointer-events: none;
+        }
 
-    
+        .indicador-topo {
+            position: absolute; 
+            right: 80px; 
+            top: 30px; 
+            background-color: #e6f2f6; 
+            color: #176087; 
+            border: none; 
+            border-radius: 18px; 
+            padding: 10px 16px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            z-index: 1000;
+        }
 
+        .botao-voltar-topo {
+            position: absolute; 
+            right: 80px; 
+            top: 85px; 
+            background-color: #e6f2f6; 
+            color: #176087; 
+            border: none; 
+            border-radius: 18px; 
+            padding: 10px 16px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            z-index: 1000;
+        }
 
-</style>
+        .botao-voltar-topo:hover {
+            background-color: #d2e7ef;
+        }
+
+        .conteudo-principal {
+            position: relative;
+            z-index: 10;
+            padding-left: 40px;
+            padding-right: 40px;
+            margin-top: 130px;
+        }
+
+        .card-vazio {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 75%;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .card-vazio h3 {
+            font-family: 'Playfair Display', serif;
+            color: #111;
+            font-size: 22px;
+            margin: 0 0 10px 0;
+        }
+
+        .card-vazio p {
+            color: #87898d;
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            margin: 0;
+        }
+
+        .card-local {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            width: 75%;
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px 30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge-equipamentos {
+            display: inline-flex;
+            align-items: center;
+            background-color: #e6f2f6;
+            color: #176087;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card-local h3 {
+            font-family: 'Playfair Display', serif;
+            color: #111;
+            font-size: 24px;
+            margin: 0 0 8px 0;
+        }
+
+        .card-local p {
+            color: #87898d;
+            font-family: 'Playfair Display', serif;
+            font-size: 15px;
+            margin: 0 0 20px 0;
+        }
+
+        .btn-checklist {
+            display: block;
+            width: 100%;
+            background-color: #0b4361;
+            color: white;
+            text-align: center;
+            padding: 14px 0;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 15px;
+            transition: background 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-checklist:hover {
+            background-color: #176087;
+        }
+
+        .painel-checklist {
+            display: none;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            width: 75%;
+            max-width: 900px;
+            margin: 15px auto 30px auto;
+            padding: 30px;
+            position: relative;
+            z-index: 20;
+            border: 1px solid #e1e8ed;
+        }
+
+        .painel-checklist.ativo {
+            display: block;
+        }
+
+        .btn-fechar-checklist {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #f0f2f5;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .topo-checklist {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .btn-reiniciar {
+            background-color: #e6f2f6;
+            color: #176087;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-registrar {
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .barra-progresso {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progresso-preenchido {
+            width: 0%;
+            height: 100%;
+            background-color: #198754;
+            transition: width 0.3s ease;
+        }
+
+        .input-busca-epi {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .container-vazio-epi {
+            text-align: center;
+            padding: 30px;
+            border: 2px dashed #dee2e6;
+            border-radius: 12px;
+            color: #6c757d;
+        }
+
+        .epi-destacado {
+            background-color: #e6f2f6 !important;
+            border: 2px solid #176087 !important;
+            transition: background-color 0.5s ease;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.ativo {
+            display: flex;
+        }
+
+        .modal-card {
+            background: #ffffff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            margin: 0 0 5px 0;
+            color: #111;
+        }
+
+        .modal-card p.subtitulo {
+            color: #87898d;
+            font-size: 14px;
+            margin: 0 0 20px 0;
+        }
+
+        .modal-card label {
+            display: block;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .modal-card input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #dcdfe3;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            margin-bottom: 15px;
+        }
+
+        .modal-card input[readonly] {
+            background-color: #f0f2f5;
+            color: #555;
+            cursor: not-allowed;
+        }
+
+        .modal-card input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dcdfe3;
+            border-radius: 8px;
+            font-size: 13px;
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            background: #fafafa;
+        }
+
+        .botoes-modal {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-cancelar {
+            background-color: #e6f2f6;
+            color: #176087;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .btn-enviar-registro {
+            background-color: #198754;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        /* Estilos gerais do painel do funcionário e notificações */
+    .painel-funcionario {
+        max-width: 900px;
+        margin: 0 auto;
+        font-family: inherit;
+    }
+
+    .secao-notificacoes {
+        margin-top: 40px;
+        text-align: left;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 14px;
+        border: 1px solid #eaedf0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    .titulo-notificacoes {
+        font-family: 'Playfair Display', serif;
+        color: #0d1b2a;
+        margin-top: 0;
+        font-size: 24px;
+    }
+
+    .subtitulo-notificacoes {
+        font-size: 14px;
+        color: #718096;
+        margin-bottom: 20px;
+    }
+
+    .sem-notificacoes {
+        text-align: center;
+        padding: 25px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        border: 1px solid #eaedf0;
+        color: #a0aec0;
+        font-size: 14px;
+    }
+
+    .lista-notificacoes {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .card-notificacao {
+        background-color: #ffffff;
+        border: 1px solid #eaedf0;
+        border-radius: 10px;
+        padding: 16px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    }
+
+    /* Cores dinâmicas para aprovação e negação */
+    .card-notificacao.aprovado {
+        border-left: 5px solid #198754;
+    }
+
+    .card-notificacao.negado {
+        border-left: 5px solid #dc3545;
+    }
+
+    .cabecalho-notificacao {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 6px;
+    }
+
+    .status-aprovado {
+        font-weight: bold;
+        font-size: 13px;
+        color: #198754;
+        text-transform: uppercase;
+    }
+
+    .status-negado {
+        font-weight: bold;
+        font-size: 13px;
+        color: #dc3545;
+        text-transform: uppercase;
+    }
+
+    .data-notificacao {
+        font-size: 12px;
+        color: #a0aec0;
+    }
+
+    .mensagem-notificacao {
+        margin: 0;
+        font-size: 14px;
+        color: #4a5568;
+        line-height: 1.5;
+    }
+
+    .conteudo-notificacao {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .btn-baixar-notif {
+        background-color: #dc3545;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        text-decoration: none;
+        font-weight: bold;
+        white-space: nowrap;
+    }
+
+    .btn-baixar-notif.aprovado {
+        background-color: #198754;
+    }
+
+    </style>
 </head>
 <body>
 
+
+
     <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
-    <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
+    <span class="texto-cajad-logo">CAJAD</span>
 
+    <img width="400" height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
+    <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra amarela" class="listra_amarela">
 
-    <img width="400"; height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
-    <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra cinza" class="listra_amarela">
-
-
-    <b style="position: fixed;
-right: 80px;
-top: 40px;
-background-color: #e6f2f6;
-color: #176087;
-border: none;
-border-radius: 18px;
-padding: 10px 16px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;">CHECKLIST FUNCIONÁRIO
-</b>
-
-
-    <button onclick="window.location.href='/'"
-style="position: fixed;
-right: 80px;
-top: 100px;
-background-color: #e6f2f6;
-color: #176087;
-border: none;
-border-radius: 18px;
-padding: 10px 16px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;">
-    Voltar ao início
-</button>
-
+    <div class="indicador-topo">
+        CHECKLIST FUNCIONÁRIO
     </div>
 
-    <p style="color:green; font-weight: bold; transform: translatey(100px); margin-left: 25px;
-"> CAJAD CONSTRUÇÕES</p>
+    <button onclick="window.location.href='/'" class="botao-voltar-topo">
+        Voltar ao início
+    </button>
 
-    <h1 style="color:rgb(9, 39, 85); font-weight: bold; transform: translatey(75px); margin-left: 20px; font-size: 34px; font-family: 'Playfair Display', serif;">Checklist do Funcionário</h1>
+    <div class="conteudo-principal">
+        <p style="color:green; letter-spacing: 2px; font-weight: bold; margin-bottom: 5px;">CAJAD CONSTRUÇÕES</p>
+        <h1 style="color:rgb(9, 39, 85); font-weight: bold; font-size: 34px; font-family: 'Playfair Display', serif; margin-top: 0; margin-bottom: 10px;">Checklist do Funcionário</h1>
+        <p style="color:rgb(135, 137, 141); font-weight: bold; font-size: 17px; font-family: 'Playfair Display', serif; margin-top: 0;">Consulte os locais disponíveis e confira os equipamentos necessários antes de iniciar as atividades.</p>
 
-    <p style="color:rgb(135, 137, 141); font-weight: bold; transform: translatey(65px); margin-left: 20px; font-size: 17px; font-family: 'Playfair Display', serif;">Consulte os locais disponíveis e confira os equipamentos necessários antes de iniciar as atividades.</p>
+        <h2 style="color:rgb(0, 0, 0); font-size: 30px; font-family: 'Playfair Display', serif; margin-top: 30px; margin-bottom: 5px;">Locais disponíveis</h2>
+        <p style="color:rgb(135, 137, 141); font-weight: bold; font-size: 17px; font-family: 'Playfair Display', serif; margin-top: 0;">Abra um local para conferir os equipamentos cadastrados pela empresa.</p>
+    </div>
 
-    <h2 style="color:rgb(0, 0, 0);  transform: translatey(65px); margin-left: 20px; font-size: 30px; font-family: 'Playfair Display', serif;">Locais disponíveis</h2>
+   
 
-    <p style="color:rgb(135, 137, 141); font-weight: bold; transform: translatey(45px); margin-left: 20px; font-size: 17px; font-family: 'Playfair Display', serif;">Abra um local para conferir os equipamentos cadastrados pela empresa.
+    {% if not locais %}
+        <div class="card-vazio">
+            <div style="font-size: 32px; margin-bottom: 10px;">📦</div>
+            <h3>Nenhum local cadastrado</h3>
+            <p>A empresa ainda não cadastrou locais disponíveis para conferência.</p>
+        </div>
+    {% else %}
+        {% for local in locais %}
+        <div class="card-local" id="card-local-{{ local.id_area }}">
+            <div class="badge-equipamentos">
+                {% if local.epis | length > 0 %}
+                    📦 {{ local.epis | length }} equipamento(s)
+                {% else %}
+                    🕒 Sem equipamentos
+                {% endif %}
+            </div>
+            
+            <h3>{{ local.nome }}</h3>
+            <p>
+                {% if local.descricao %}
+                    {{ local.descricao }}
+                {% else %}
+                    Nenhum equipamento cadastrado
+                {% endif %}
+            </p>
 
-</p>
+            <button type="button" class="btn-checklist" onclick="alternarChecklist('{{ local.id_area }}')">
+                Abrir checklist &rarr;
+            </button>
+        </div>
 
-    <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
+        <div class="painel-checklist" id="checklist-{{ local.id_area }}">
+            <button type="button" class="btn-fechar-checklist" onclick="fecharChecklist('{{ local.id_area }}')" title="Fechar">&times;</button>
 
+            <div class="topo-checklist">
+                <div>
+                    <span style="font-size: 12px; color: #87898d; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Checklist do Local</span>
+                    <h2 style="font-family: 'Playfair Display', serif; margin: 5px 0 0 0; color: #111; font-size: 26px;">{{ local.nome }}</h2>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center; margin-right: 40px;">
+                    <button type="button" class="btn-reiniciar" onclick="reiniciarChecklist('{{ local.id_area }}')">Reiniciar checklist</button>
+                    <button type="button" class="btn-registrar" onclick="abrirModalRegistro('{{ local.id_area }}', '{{ local.nome }}')">Registrar utilização</button>
+                </div>
+            </div>
 
+            <p style="font-weight: bold; color: #333; margin-bottom: 5px;" id="texto-contador-{{ local.id_area }}">
+                0 de {{ local.epis | length }} equipamentos conferidos
+            </p>
+            <div class="barra-progresso">
+                <div class="progresso-preenchido" id="barra-{{ local.id_area }}" style="width: 0%;"></div>
+            </div>
+            <p style="color: #87898d; font-size: 14px; margin-top: 5px;" id="status-conferencia-{{ local.id_area }}">Nenhuma conferência registrada neste local ainda.</p>
 
+            <div style="margin-top: 25px;">
+                <label style="font-weight: bold; color: #333; font-size: 15px;">Buscar equipamento neste local</label>
+                <input type="text" class="input-busca-epi" id="busca-epi-{{ local.id_area }}" oninput="pesquisarEpi('{{ local.id_area }}')" placeholder="Digite o nome, categoria ou código do equipamento">
+            </div>
+
+            {% if local.epis | length > 0 %}
+                <div style="margin-top: 15px;" id="lista-epis-{{ local.id_area }}">
+                    {% for epi in local.epis %}
+                        <div class="item-epi" data-nome="{{ epi.nome | lower }}" data-categoria="{{ epi.categoria | lower }}" data-codigo="{{ epi.codigo | lower }}" style="background: #f8f9fa; padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s;">
+                            <div>
+                                <strong>{{ epi.nome }}</strong> 
+                                <span style="color: #6c757d; font-size: 13px;">
+                                    {% if epi.categoria %}({{ epi.categoria }}){% endif %}
+                                    {% if epi.codigo %} - Cód: {{ epi.codigo }}{% endif %}
+                                </span>
+                            </div>
+                            <input type="checkbox" class="checkbox-epi-{{ local.id_area }}" data-total="{{ local.epis | length }}" onchange="atualizarProgresso('{{ local.id_area }}')" style="width: 18px; height: 18px; cursor: pointer;">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="container-vazio-epi">
+                    <div style="font-size: 28px; margin-bottom: 8px;">📦</div>
+                    <p style="margin: 0; font-weight: bold; color: #495057;">Este local não possui equipamentos cadastrados</p>
+                </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="modal-overlay" id="modalRegistro">
+        <div class="modal-card">
+            <button type="button" class="btn-fechar-checklist" onclick="fecharModalRegistro()">&times;</button>
+            <h2>Registrar utilização</h2>
+            <p class="subtitulo">Envie uma foto para registrar a utilização dos equipamentos neste local.</p>
+
+            <form action="{{ url_for('registrar_utilizacao') }}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id_area" id="modal_id_area">
+
+                <label>Local da utilização</label>
+                <input type="text" id="modal_nome_local" readonly>
+
+                <label>Data e Hora do Envio</label>
+                <input type="text" id="modal_data_hora" readonly style="background-color: #e9ecef; font-weight: bold; color: #495057;">
+
+                <label>Foto do funcionário</label>
+                <input type="file" name="foto" accept="image/*" required>
+                <p style="color: #87898d; font-size: 12px; margin-top: 2px;">O sistema registrará automaticamente seu ID e e-mail no banco de dados.</p>
+
+                <div class="botoes-modal">
+                    <button type="button" class="btn-cancelar" onclick="fecharModalRegistro()">Cancelar</button>
+                    <button type="submit" class="btn-enviar-registro">Enviar registro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div class="secao-notificacoes">
+    <h2 class="titulo-notificacoes">📬 Minhas Notificações</h2>
+    <p class="subtitulo-notificacoes">Acompanhe aqui o status de aprovação ou rejeição dos seus checklists enviados.</p>
+
+    {% if not notificacoes %}
+        <div class="sem-notificacoes">
+            <p style="margin: 0;">Nenhuma mensagem nova no momento.</p>
+        </div>
+    {% else %}
+       <div class="lista-notificacoes">
+            {% for notif in notificacoes %}
+                <div class="card-notificacao {% if notif.tipo == 'aprovado' %}aprovado{% else %}negado{% endif %}">
+                    <div class="cabecalho-notificacao">
+                        <span class="{% if notif.tipo == 'aprovado' %}status-aprovado{% else %}status-negado{% endif %}">
+                            {% if notif.tipo == 'aprovado' %}✔ Checklist Aprovado{% else %}✖ Checklist Negado{% endif %}
+                        </span>
+                        <span class="data-notificacao">
+                            {{ notif.data_criacao.strftime('%d/%m/%Y às %H:%M') }}
+                        </span>
+                    </div>
+
+                    <div class="conteudo-notificacao">
+                        <p class="mensagem-notificacao">
+                            {{ notif.mensagem }}
+                        </p>
+
+                        {% if notif.id_foto %}
+                            <a href="{{ url_for('baixar_foto', id_foto=notif.id_foto) }}" class="btn-baixar-notif {% if notif.tipo == 'aprovado' %}aprovado{% endif %}">
+                                🖼 Ver Foto Enviada
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+    <div style="text-align: center; width: 100%; margin-top: 50px; margin-bottom: 20px; position: relative; z-index: 10;">
+        <p style="color:gray; font-size: 14px;">CAJAD Construções · Construindo com confiança</p>
+    </div>
+
+    <script>
+        function alternarChecklist(idArea) {
+            const todosOsChecklists = document.querySelectorAll('.painel-checklist');
+            todosOsChecklists.forEach(painel => {
+                if (painel.id !== 'checklist-' + idArea) {
+                    painel.classList.remove('ativo');
+                }
+            });
+
+            const painelAlvo = document.getElementById('checklist-' + idArea);
+            if (painelAlvo) {
+                painelAlvo.classList.toggle('ativo');
+                if (painelAlvo.classList.contains('ativo')) {
+                    painelAlvo.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        function fecharChecklist(idArea) {
+            const painelAlvo = document.getElementById('checklist-' + idArea);
+            if (painelAlvo) {
+                painelAlvo.classList.remove('ativo');
+            }
+        }
+
+        function atualizarProgresso(idArea) {
+            const checkboxes = document.querySelectorAll('.checkbox-epi-' + idArea);
+            const total = checkboxes.length;
+            let marcados = 0;
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) marcados++;
+            });
+
+            const porcentagem = total > 0 ? (marcados / total) * 100 : 0;
+            
+            document.getElementById('barra-' + idArea).style.width = porcentagem + '%';
+            document.getElementById('texto-contador-' + idArea).innerText = `${marcados} de ${total} equipamentos conferidos`;
+            
+            const statusText = document.getElementById('status-conferencia-' + idArea);
+            if (marcados === total && total > 0) {
+                statusText.innerText = 'Todos os equipamentos foram conferidos!';
+                statusText.style.color = '#198754';
+            } else if (marcados > 0) {
+                statusText.innerText = 'Conferência em andamento...';
+                statusText.style.color = '#ffc107';
+            } else {
+                statusText.innerText = 'Nenhuma conferência registrada neste local ainda.';
+                statusText.style.color = '#87898d';
+            }
+        }
+
+        async function reiniciarChecklist(idArea) {
+            const confirmar = confirm("Deseja apagar o registro de utilização?");
+            if (!confirmar) return;
+
+            const checkboxes = document.querySelectorAll('.checkbox-epi-' + idArea);
+            checkboxes.forEach(cb => cb.checked = false);
+            atualizarProgresso(idArea);
+
+            try {
+                await fetch('/reiniciar_checklist/' + idArea, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+            } catch (erro) {
+                console.error("Erro ao reiniciar checklist:", erro);
+            }
+        }
+
+        function abrirModalRegistro(idArea, nomeLocal) {
+            document.getElementById('modal_id_area').value = idArea;
+            document.getElementById('modal_nome_local').value = nomeLocal;
+
+            const agora = new Date();
+            const dataFormatada = agora.toLocaleDateString('pt-BR') + ' ' + agora.toLocaleTimeString('pt-BR');
+            document.getElementById('modal_data_hora').value = dataFormatada;
+
+            document.getElementById('modalRegistro').classList.add('ativo');
+        }
+
+        function fecharModalRegistro() {
+            document.getElementById('modalRegistro').classList.remove('ativo');
+        }
+
+        function pesquisarEpi(idArea) {
+            const termo = document.getElementById('busca-epi-' + idArea).value.toLowerCase().trim();
+            const container = document.getElementById('lista-epis-' + idArea);
+            if (!container) return;
+
+            const itens = container.querySelectorAll('.item-epi');
+
+            itens.forEach(item => {
+                const nome = item.getAttribute('data-nome') || '';
+                const categoria = item.getAttribute('data-categoria') || '';
+                const codigo = item.getAttribute('data-codigo') || '';
+s
+                item.classList.remove('epi-destacado');
+
+                if (termo !== '' && (nome.includes(termo) || categoria.includes(termo) || codigo.includes(termo))) {
+                    item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    item.classList.add('epi-destacado');
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>

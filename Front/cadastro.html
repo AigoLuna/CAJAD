@@ -157,7 +157,7 @@
 </head>
 <body>
 
-    <!-- Elementos visuais e identidade visual da CAJAD -->
+    <!-- logo CAJAD -->
     <img src="{{ url_for('static', filename='imagens/logo_cajad.png') }}" alt="Logo CAJAD Construções" class="logo">
     <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
 
@@ -178,7 +178,6 @@
         <h2>Criar Conta de Empresa</h2>
         
         <form action="/cadastro" method="POST">
-            <!-- Envia o tipo do usuário ocultamente para o app.py -->
             <input type="hidden" name="tipo" value="{{ tipo }}">
 
             <div class="form-group">
@@ -196,7 +195,6 @@
                 <input type="password" id="senha" name="senha" required placeholder="Sua senha secreta">
             </div>
 
-            <!-- CAMPO DO CÓDIGO ÚNICO DE EMPRESA -->
             <div class="form-group" style="border: 2px dashed #f0ad4e; padding: 12px; border-radius: 6px; background: #fdf8e2; margin-top: 15px;">
                 <label for="codigo_empresa" style="color: #8a6d3b; margin-bottom: 3px;">Código de Acesso de Empresa:</label>
                 <input type="text" id="codigo_empresa" name="codigo_empresa" required placeholder="Ex: CAJAD-EMP-01" style="background-color: #fff;">

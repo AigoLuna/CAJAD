@@ -4,87 +4,780 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CAJAD Construções</title>
-
     <meta name="description" content="Página da empresa, gestão de EPIs.">
-    <style> body { background-color: #f4f7f9; }
+    
+    <!-- Fonte Playfair Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-    .logo{
-            position: fixed;
-            top:20px;
+    <style>
+        body { 
+            background-color: #f4f7f9; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
             left: 20px;
             width: 60px;
             height: auto;
-            z-index:1000;
-
-            
+            z-index: 10;
         } 
 
-    .listra{
+        .listra {
             width: 400px;
             height: auto;
-            position: absolute;
+            position: fixed;
             top: 3px;
             right: 0px;
+            z-index: -1;
+            pointer-events: none;
         }
 
-    .listra_amarela{
+        .listra_amarela {
             width: 350px;
             height: auto;
             position: fixed;
             left: 0px;
             top: 450px;
-        }   
+            z-index: -1;
+            pointer-events: none;
+        }
 
-    
+        .main-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;       
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 10;
+            box-sizing: border-box;
+            padding-top: 80px; 
+        }
 
+        /* Classe para ocultar os registros além do 2º por padrão */
+        .registro-oculto {
+            display: none !important;
+        }
+        
+        .btn-voltar-topo {
+            position: absolute;
+            right: 80px;
+            top: 90px;
+            background-color: #e6f2f6;
+            color: #176087;
+            border: none;
+            border-radius: 18px;
+            padding: 10px 16px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 9999;
+        }
 
-</style>
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 25px;
+        }
+
+        .card-stat {
+            background-color: #ffffff;
+            border: 1px solid #eaedf0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .search-card {
+            background-color: #ffffff;
+            border: 1px solid #eaedf0;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 35px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4a5568;
+        }
+
+        .input-field {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 14px;
+            outline: none;
+            background-color: #ffffff;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea.input-field {
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .btn-novo-local {
+            background-color: #176087;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .content-section {
+            background-color: #ffffff;
+            border: 1px solid #eaedf0;
+            border-radius: 16px;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 35px;
+        }
+
+        .locais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .card-local {
+            background-color: #ffffff;
+            border: 1px solid #eaedf0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            text-align: left;
+            position: relative;
+        }
+
+        .card-local-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .tag-equipamentos {
+            background-color: #e6f2f6;
+            color: #176087;
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 12px;
+        }
+
+        .acoes-local {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-acao {
+            background: none;
+            border: 1px solid #eaedf0;
+            border-radius: 8px;
+            padding: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+        }
+
+        .btn-acao:hover {
+            background-color: #f7fafc;
+            color: #176087;
+        }
+
+        .btn-acao-excluir:hover {
+            background-color: #fef2f2;
+            color: #e53e3e;
+            border-color: #fca5a5;
+        }
+
+        .card-local h3 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0d1b2a;
+            margin: 0 0 20px 0;
+        }
+
+        .btn-ver-equipamentos {
+            background-color: #176087;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 16px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detalhe-local-card {
+            background-color: #ffffff;
+            border: 1px solid #eaedf0;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            margin-bottom: 35px;
+        }
+
+        .detalhe-local-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .btn-adicionar-equipamento {
+            background-color: #176087;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); 
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-card {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 540px;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #a0aec0;
+        }
+
+        .modal-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-cancelar {
+            background-color: #e2e8f0;
+            border: none;
+            color: #4a5568;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn-salvar {
+            background-color: #176087;
+            border: none;
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
     <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
-    <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
+    <b style="position: absolute; top: 40px; left: 90px; z-index: 10; color: #002b45">CAJAD</b>
+
+    <img width="400" height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
+    <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra amarela" class="listra_amarela">
+
+    <b style="position: absolute; right: 80px; top: 30px; background-color: #e6f2f6; color: #176087; border-radius: 18px; padding: 10px 16px; font-size: 16px; font-weight: bold; letter-spacing: 2px; z-index: 10;">GESTÃO EMPRESA</b>
+
+    <button onclick="window.location.href='/'" class="btn-voltar-topo">
+        Voltar ao início
+    </button>
+
+    <div class="main-container">
+
+        <p style="color:#176087; font-weight: bold; letter-spacing: 2px; margin: 0 0 10px 0;">GESTÃO DE ATIVOS</p>
+
+        <h1 style="color:rgb(0, 0, 0); font-weight: bold; margin: 0 0 10px 0; font-size: 34px; font-family: 'Playfair Display', serif;">Equipamentos por local</h1>
+        
+        <p style="color:rgb(135, 137, 141); font-weight: bold; margin: 0 0 30px 0; font-size: 19px; font-family: 'Playfair Display', serif;">Cadastre, organize e acompanhe os equipamentos da empresa onde eles estão sendo utilizados.</p>
+        
+        <!-- Cards Superiores -->
+        <div class="cards-grid">
+            <div class="card-stat">
+                <h3 style="color: #919292; font-size: 13px; letter-spacing: 1.5px; margin: 0 0 10px 0;">LOCAIS CADASTRADOS</h3>
+                <p style="font-size: 40px; font-weight: bold; margin: 0;">{{ locais|length }}</p>
+            </div>
+
+            <div class="card-stat">
+                <h3 style="color: #919292; font-size: 13px; letter-spacing: 1.5px; margin: 0 0 10px 0;">EQUIPAMENTOS</h3>
+                <p style="font-size: 40px; font-weight: bold; margin: 0;">
+                    {% set ns = namespace(total=0) %}
+                    {% for l in locais %}
+                        {% set ns.total = ns.total + l.epis|length %}
+                    {% endfor %}
+                    {{ ns.total }}
+                </p>
+            </div>
+        </div>
 
 
-    <img width="400"; height="300" src="{{url_for('static', filename='imagens/listra_cinza.png')}}" alt="Listra cinza" class="listra">
-    <img src="{{url_for('static', filename='imagens/listra_amarela.png')}}" alt="Listra cinza" class="listra_amarela">
+            <button class="btn-novo-local" id="btnAbrirModal">Novo local</button>
+        </div>
 
+        <!-- SEÇÃO: LOCAIS -->
+        <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; font-size: 26px; margin-bottom: 15px;">Locais</h2>
+        
+        {% if locais|length == 0 %}
+        <div class="content-section" id="estadoVazioLocais">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px;">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                <line x1="8" y1="11" x2="14" y2="11"></line>
+            </svg>
+            <h4 style="margin: 0 0 6px 0; color: #2d3748; font-size: 16px;">Nenhum local encontrado</h4>
+            <p style="margin: 0; color: #a0aec0; font-size: 14px;">Cadastre um novo local ou ajuste os filtros para visualizar os resultados.</p>
+        </div>
+        {% else %}
+        <div class="locais-grid">
+            {% for loc in locais %}
+            <div class="card-local">
+                <div class="card-local-header">
+                    <span class="tag-equipamentos">{{ loc.epis|length }} equipamentos</span>
+                    <div class="acoes-local">
+                        <button type="button" class="btn-acao" onclick="abrirModalEditarLocal('{{ loc.id_area }}', '{{ loc.nome }}')" title="Editar local">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </button>
+                        <form action="{{ url_for('excluir_local', id_area=loc.id_area) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir este local e seus equipamentos vinculados?');" style="margin:0;">
+                            <button type="submit" class="btn-acao btn-acao-excluir" title="Excluir local">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <h3>{{ loc.nome }}</h3>
+                <button class="btn-ver-equipamentos" onclick="document.getElementById('equip-local-{{ loc.id_area }}').scrollIntoView({behavior: 'smooth'})">
+                    Ver equipamentos 
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
 
-    <b style="position: fixed;
-right: 80px;
-top: 40px;
-background-color: #e6f2f6;
-color: #176087;
-border: none;
-border-radius: 18px;
-padding: 10px 16px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;">CHECKLIST FUNCIONÁRIO</b>
+     <!-- Seção: Registros de utilização -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; margin-top: 40px;">
+            <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; font-size: 26px; margin: 0;">Registros de utilização pendentes</h2>
+            <span style="background-color: #edf2f7; color: #718096; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: bold;">
+                {% set total_regs = namespace(val=0) %}
+                {% for dia, regs in registros_por_dia.items() %}
+                    {% set total_regs.val = total_regs.val + regs|length %}
+                {% endfor %}
+                {{ total_regs.val }} registros
+            </span>
+        </div>
+        
+        <p style="color: rgb(135, 137, 141); font-size: 16px; margin-top: 0; margin-bottom: 15px;">Funcionários que registraram a utilização dos equipamentos. Aprove ou negue os envios abaixo.</p>
+        
+        {% if not registros_por_dia %}
+        <div class="content-section" style="margin-bottom: 20px;">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#a0aec0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px;">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            <h4 style="margin: 0 0 6px 0; color: #2d3748; font-size: 16px;">Nenhum registro pendente</h4>
+            <p style="margin: 0; color: #a0aec0; font-size: 14px;">Novos registros enviados pelos funcionários aparecerão aqui.</p>
+        </div>
+        {% else %}
+            {% set contador_global = namespace(val=0) %}
+            
+            {% for dia, regs in registros_por_dia.items() %}
+                <h3 style="color: #176087; border-bottom: 2px solid #e6f2f6; padding-bottom: 6px; margin-top: 25px; font-size: 17px; font-family: 'Playfair Display', serif;">
+                    📅 Data: {{ dia }}
+                </h3>
+                
+                {% for reg in regs %}
+                    {% set contador_global.val = contador_global.val + 1 %}
+                    
+                    <div class="item-registro {% if contador_global.val > 2 %}oculto{% endif %}" style="background-color: #ffffff; border: 1px solid #eaedf0; border-left: 4px solid #198754; border-radius: 12px; padding: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+                        <div>
+                            <p style="margin: 0 0 6px 0; font-size: 15px; color: #0d1b2a;"><strong>Funcionário:</strong> {{ reg.nome_funcionario }}</p>
+                            <p style="margin: 0 0 5px 0; font-size: 13px; color: #4a5568;"><strong>ID do Usuário:</strong> #{{ reg.usuario_id }} | <strong>E-mail:</strong> {{ reg.email_usuario }}</p>
+                            <p style="margin: 0 0 5px 0; font-size: 13px; color: #4a5568;"><strong>ID do Local (Área):</strong> {{ reg.id_area }} | <strong>Horário:</strong> {{ reg.data_envio.strftime('%H:%M:%S') }}</p>
+                            <p style="margin: 0; font-size: 12px; color: #a0aec0;"><strong>Arquivo:</strong> {{ reg.nome_arquivo }}</p>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+                            <!-- Botão Baixar Foto -->
+                            <a href="{{ url_for('baixar_foto', id_foto=reg.id_foto) }}" style="background-color: #176087; color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; text-decoration: none; font-weight: bold;">
+                                📥 Baixar Foto
+                            </a>
 
+                            <!-- Botões de Aprovar e Negar -->
+                            <div style="display: flex; gap: 6px; margin-top: 4px;">
+                                <form action="{{ url_for('avaliar_registro', id_foto=reg.id_foto) }}" method="POST" style="margin: 0;">
+                                    <input type="hidden" name="acao" value="aprovar">
+                                    <button type="submit" style="background-color: #198754; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer;">
+                                        ✔ Aprovado
+                                    </button>
+                                </form>
+                                <button type="button" onclick="abrirModalNegar('{{ reg.id_foto }}')" style="background-color: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer;">
+                                    ✖ Negado
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
 
-    <button onclick="window.location.href='/'"
-style="position: fixed;
-right: 80px;
-top: 100px;
-background-color: #e6f2f6;
-color: #176087;
-border: none;
-border-radius: 18px;
-padding: 10px 16px;
-font-size: 16px;
-font-weight: bold;
-cursor: pointer;">
-    Voltar ao início
-</button>
+            <!-- Botões Ver Todos / Ver Menos -->
+            {% if contador_global.val > 2 %}
+                <div style="text-align: center; margin-top: 20px; margin-bottom: 30px;">
+                    <button type="button" id="btnVerTodos" onclick="alternarRegistros(true)" style="background-color: #e6f2f6; color: #176087; border: none; border-radius: 12px; padding: 10px 20px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                        Ver todos ({{ contador_global.val }}) &darr;
+                    </button>
+                    <button type="button" id="btnVerMenos" onclick="alternarRegistros(false)" style="display: none; background-color: #e2e8f0; color: #4a5568; border: none; border-radius: 12px; padding: 10px 20px; font-weight: bold; cursor: pointer; font-size: 14px;">
+                        Ver menos &uarr;
+                    </button>
+                </div>
+            {% endif %}
+        {% endif %}
+
+    <!-- Modal para digitar o motivo da rejeição -->
+    <div id="modalNegar" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 25px; border-radius: 14px; width: 90%; max-width: 400px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+            <h3 style="margin-top: 0; color: #0d1b2a; font-size: 18px;">Motivo da Negação</h3>
+            <form id="formNegar" method="POST">
+                <input type="hidden" name="acao" value="negar">
+                <textarea name="motivo" placeholder="Descreva o motivo de ter negado este envio..." required style="width: 100%; height: 90px; padding: 10px; border: 1px solid #ccc; border-radius: 8px; box-sizing: border-box; font-family: inherit; margin-bottom: 15px;"></textarea>
+                <div style="display: flex; justify-content: flex-end; gap: 10px;">
+                    <button type="button" onclick="fecharModalNegar()" style="background: #e2e8f0; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer;">Cancelar</button>
+                    <button type="submit" style="background: #dc3545; color: white; border: none; padding: 8px 14px; border-radius: 8px; font-weight: bold; cursor: pointer;">Confirmar Negação</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .item-registro.oculto { display: none !important; }
+    </style>
+
+    <script>
+        function alternarRegistros(mostrarTodos) {
+            const itens = document.querySelectorAll('.item-registro');
+            const btnTodos = document.getElementById('btnVerTodos');
+            const btnMenos = document.getElementById('btnVerMenos');
+
+            itens.forEach((item, index) => {
+                if (index >= 2) {
+                    if (mostrarTodos) { item.classList.remove('oculto'); } 
+                    else { item.classList.add('oculto'); }
+                }
+            });
+
+            if (mostrarTodos) {
+                btnTodos.style.display = 'none';
+                btnMenos.style.display = 'inline-block';
+            } else {
+                btnTodos.style.display = 'inline-block';
+                btnMenos.style.display = 'none';
+            }
+        }
+
+        function abrirModalNegar(idFoto) {
+            const modal = document.getElementById('modalNegar');
+            const form = document.getElementById('formNegar');
+            form.action = "/avaliar_registro/" + idFoto;
+            modal.style.display = 'flex';
+        }
+
+        function fecharModalNegar() {
+            document.getElementById('modalNegar').style.display = 'none';
+        }
+    </script>
+        {% for loc in locais %}
+        <div class="detalhe-local-card" id="equip-local-{{ loc.id_area }}">
+            <div class="detalhe-local-topo">
+                <div>
+                    <p style="color: #919292; font-size: 12px; font-weight: bold; letter-spacing: 1px; margin: 0 0 6px 0;">EQUIPAMENTOS DO LOCAL</p>
+                    <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; font-size: 28px; margin: 0;">{{ loc.nome }}</h2>
+                </div>
+                <button class="btn-adicionar-equipamento" onclick="abrirModalEquipamento('{{ loc.id_area }}')">Adicionar equipamento</button>
+            </div>
+            
+            {% if loc.epis|length == 0 %}
+            <div class="content-section" style="margin-bottom: 0; border: 1px dashed #cbd5e0;">
+                <h4 style="margin: 0 0 6px 0; color: #2d3748; font-size: 16px;">Nenhum equipamento por aqui</h4>
+                <p style="margin: 0; color: #a0aec0; font-size: 14px;">Use o botão acima para cadastrar o primeiro equipamento deste local.</p>
+            </div>
+            {% else %}
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                {% for eq in loc.epis %}
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="color: #2d3748; font-size: 16px;">{{ eq.nome }}</strong>
+                        {% if eq.categoria %}
+                        <span style="background: #e2e8f0; color: #4a5568; font-size: 12px; padding: 2px 8px; border-radius: 6px; margin-left: 10px;">{{ eq.categoria }}</span>
+                        {% endif %}
+                        {% if eq.codigo %}
+                        <span style="color: #718096; font-size: 13px; margin-left: 10px;">Cód: {{ eq.codigo }}</span>
+                        {% endif %}
+                        {% if eq.descricao %}
+                        <p style="margin: 4px 0 0 0; color: #718096; font-size: 13px;">{{ eq.descricao }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="acoes-local">
+                        <button type="button" class="btn-acao btn-editar-equip" data-id="{{ eq.id_epi }}" data-nome="{{ eq.nome }}" data-categoria="{{ eq.categoria or '' }}" data-codigo="{{ eq.codigo or '' }}" data-desc="{{ eq.descricao or '' }}" title="Editar equipamento">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                        </button>
+                        <form action="{{ url_for('excluir_equipamento', id_epi=eq.id_epi) }}" method="POST" onsubmit="return confirm('Deseja realmente excluir este equipamento?');" style="margin:0;">
+                            <button type="submit" class="btn-acao btn-acao-excluir" title="Excluir equipamento">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
 
     </div>
 
-        <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
+    <!-- Rodapé -->
+    <p style="text-align: center; color:gray; font-size: 13px; margin: 20px 0 10px 0; position: relative; z-index: 10;">CAJAD Construções · Construindo com confiança</p>
 
 
+    <div class="modal-overlay" id="modalLocal">
+        <div class="modal-card">
+            <button class="modal-close" id="btnFecharX">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; margin-top: 0; font-size: 24px;">Cadastrar local</h2>
+            <p style="color: #718096; font-size: 14px; margin-bottom: 20px;">Informe um título para identificar este local.</p>
+
+            <form method="POST">
+                <input type="hidden" name="acao" value="novo_local">
+                <div class="input-group">
+                    <label>Título do local</label>
+                    <input type="text" class="input-field" name="nome_local" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar local</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEditarLocal">
+        <div class="modal-card">
+            <button class="modal-close" id="btnFecharEditarLocalX">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; margin-top: 0; font-size: 24px;">Editar local</h2>
+            <p style="color: #718096; font-size: 14px; margin-bottom: 20px;">Altere o título do local.</p>
+
+            <form id="formEditarLocal" method="POST">
+                <div class="input-group">
+                    <label>Título do local</label>
+                    <input type="text" class="input-field" name="nome_local" id="inputEditarNomeLocal" required>
+                </div>
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancelar" id="btnCancelarEditarLocal">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEquipamento">
+        <div class="modal-card">
+            <button class="modal-close" id="btnFecharEquipX">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; margin-top: 0; font-size: 24px;">Cadastrar equipamento</h2>
+            <p style="color: #718096; font-size: 14px; margin-bottom: 20px;">Preencha os dados do equipamento para este local.</p>
+
+            <form method="POST">
+                <input type="hidden" name="acao" value="novo_equipamento">
+                <input type="hidden" name="id_area" id="inputLocalIdEquip">
+
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label>Nome do equipamento</label>
+                    <input type="text" class="input-field" name="nome_epi" required>
+                </div>
+
+                <div class="modal-grid-2" style="margin-bottom: 16px;">
+                    <div class="input-group">
+                        <label>Categoria</label>
+                        <input type="text" class="input-field" name="categoria" placeholder="Ex: EPI, Ferramenta">
+                    </div>
+                    <div class="input-group">
+                        <label>Código (opcional)</label>
+                        <input type="text" class="input-field" name="codigo" placeholder="Ex: EQ-001">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Observação / Descrição (opcional)</label>
+                    <textarea class="input-field" name="descricao_epi"></textarea>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancelar" id="btnCancelarEquip">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar equipamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalEditarEquipamento">
+        <div class="modal-card">
+            <button class="modal-close" id="btnFecharEditarEquipX">&times;</button>
+            <h2 style="font-family: 'Playfair Display', serif; color: #0d1b2a; margin-top: 0; font-size: 24px;">Editar equipamento</h2>
+            <p style="color: #718096; font-size: 14px; margin-bottom: 20px;">Atualize os dados do equipamento.</p>
+
+            <form id="formEditarEquipamento" method="POST">
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label>Nome do equipamento</label>
+                    <input type="text" class="input-field" name="nome_epi" id="inputEditarNomeEquip" required>
+                </div>
+
+                <div class="modal-grid-2" style="margin-bottom: 16px;">
+                    <div class="input-group">
+                        <label>Categoria</label>
+                        <input type="text" class="input-field" name="categoria" id="inputEditarCategoriaEquip">
+                    </div>
+                    <div class="input-group">
+                        <label>Código (opcional)</label>
+                        <input type="text" class="input-field" name="codigo" id="inputEditarCodigoEquip">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Observação / Descrição (opcional)</label>
+                    <textarea class="input-field" name="descricao_epi" id="inputEditarDescEquip"></textarea>
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" class="btn-cancelar" id="btnCancelarEditarEquip">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Salvar alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        const modalLocal = document.getElementById('modalLocal');
+        const modalEditarLocal = document.getElementById('modalEditarLocal');
+        const modalEquipamento = document.getElementById('modalEquipamento');
+        const modalEditarEquipamento = document.getElementById('modalEditarEquipamento');
+        
+        // Modal Cadastrar Local
+        document.getElementById('btnAbrirModal').addEventListener('click', () => { modalLocal.style.display = 'flex'; });
+        document.getElementById('btnFecharX').addEventListener('click', () => { modalLocal.style.display = 'none'; });
+        document.getElementById('btnCancelar').addEventListener('click', () => { modalLocal.style.display = 'none'; });
+
+        // Modal Editar Local
+        window.abrirModalEditarLocal = function(idArea, nomeAtual) {
+            document.getElementById('formEditarLocal').action = `/editar_local/${idArea}`;
+            document.getElementById('inputEditarNomeLocal').value = nomeAtual;
+            modalEditarLocal.style.display = 'flex';
+        };
+        document.getElementById('btnFecharEditarLocalX').addEventListener('click', () => { modalEditarLocal.style.display = 'none'; });
+        document.getElementById('btnCancelarEditarLocal').addEventListener('click', () => { modalEditarLocal.style.display = 'none'; });
+
+        // Modal Cadastrar Equipamento
+        window.abrirModalEquipamento = function(idArea) {
+            document.getElementById('inputLocalIdEquip').value = idArea;
+            modalEquipamento.style.display = 'flex';
+        };
+        document.getElementById('btnFecharEquipX').addEventListener('click', () => { modalEquipamento.style.display = 'none'; });
+        document.getElementById('btnCancelarEquip').addEventListener('click', () => { modalEquipamento.style.display = 'none'; });
+
+        // Modal Editar Equipamento (via data attributes)
+        document.querySelectorAll('.btn-editar-equip').forEach(button => {
+            button.addEventListener('click', function() {
+                const idEpi = this.getAttribute('data-id');
+                const nome = this.getAttribute('data-nome');
+                const categoria = this.getAttribute('data-categoria');
+                const codigo = this.getAttribute('data-codigo');
+                const desc = this.getAttribute('data-desc');
+
+                document.getElementById('formEditarEquipamento').action = `/editar_equipamento/${idEpi}`;
+                document.getElementById('inputEditarNomeEquip').value = nome;
+                document.getElementById('inputEditarCategoriaEquip').value = categoria;
+                document.getElementById('inputEditarCodigoEquip').value = codigo;
+                document.getElementById('inputEditarDescEquip').value = desc;
+                modalEditarEquipamento.style.display = 'flex';
+             });
+        });
+
+
+        document.getElementById('btnFecharEditarEquipX').addEventListener('click', () => { modalEditarEquipamento.style.display = 'none'; });
+        document.getElementById('btnCancelarEditarEquip').addEventListener('click', () => { modalEditarEquipamento.style.display = 'none'; });
+
+        // Fechar modais ao clicar fora
+        window.addEventListener('click', (event) => {
+            if (event.target === modalLocal) modalLocal.style.display = 'none';
+            if (event.target === modalEditarLocal) modalEditarLocal.style.display = 'none';
+            if (event.target === modalEquipamento) modalEquipamento.style.display = 'none';
+            if (event.target === modalEditarEquipamento) modalEditarEquipamento.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
-
-
-

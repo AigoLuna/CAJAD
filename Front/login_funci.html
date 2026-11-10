@@ -41,7 +41,6 @@
             z-index: 1;
         }
 
-        /* Container centralizado para o formulário de login */
         .login-container {
             position: relative;
             z-index: 10;
@@ -130,7 +129,6 @@
             text-decoration: underline;
         }
 
-        /* Estilos dos botões do topo */
         .topo-titulo {
             position: fixed; 
             top: 40px; 
@@ -159,14 +157,12 @@
 </head>
 <body>
 
-    <!-- Elementos visuais e identidade visual da CAJAD -->
      <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
     <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
 
     <img width="400" height="300" src="{{ url_for('static', filename='imagens/listra_cinza.png') }}" alt="Listra cinza" class="listra">
     <img src="{{ url_for('static', filename='imagens/listra_amarela.png') }}" alt="Listra amarela" class="listra_amarela">
 
-    <!-- Botão do topo -->
     <div class="btn-topo-direito">
         LOGIN DO SISTEMA
     </div>
@@ -175,7 +171,6 @@
         Voltar ao início
     </button>
 
-    <!-- Formulário de Login -->
     <div class="login-container">
         <h2>Entrar no Sistema</h2>
         

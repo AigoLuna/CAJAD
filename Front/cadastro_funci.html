@@ -41,7 +41,6 @@
             z-index: 1;
         }
 
-        /* Container centralizado para o formulário de cadastro */
         .cadastro-container {
             position: relative;
             z-index: 10;
@@ -114,7 +113,6 @@
             text-decoration: underline;
         }
 
-        /* Estilos dos elementos do topo */
         .topo-titulo {
             position: fixed; 
             top: 40px; 
@@ -157,7 +155,7 @@
 </head>
 <body>
 
-    <!-- Elementos visuais e identidade visual da CAJAD -->
+    <!-- Logo CAJAD -->
      <img src="{{url_for('static', filename='imagens/logo_cajad.png')}}" alt="Logo CAJAD Construções" class="logo">
     <b style="position: fixed; top: 40px; left: 80px; z-index: 1000; color: #002b45">CAJAD</b>
 
@@ -179,7 +177,6 @@
         <h2>Criar Conta de Funcionário</h2>
         
         <form action="/cadastro_funci" method="POST">
-            <!-- Envia o tipo do usuário ocultamente para o app.py -->
             <input type="hidden" name="tipo" value="{{ tipo }}">
 
             <div class="form-group">
@@ -198,7 +195,6 @@
                 <input type="password" id="senha" name="senha" required placeholder="Sua senha secreta">
             </div>
 
-            <!-- CAMPO DO CÓDIGO ÚNICO (EXIBIDO APENAS SE FOR TIPO EMPRESA) -->
             {% if tipo == 'empresa' %}
             <div class="form-group" style="border: 2px dashed #f0ad4e; padding: 12px; border-radius: 6px; background: #fdf8e2; margin-top: 15px;">
                 <label for="codigo_empresa" style="color: #8a6d3b; margin-bottom: 3px;">Código de Acesso de Empresa:</label>
