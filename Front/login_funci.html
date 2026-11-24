@@ -129,6 +129,22 @@
             text-decoration: underline;
         }
 
+        .esqueci-senha {
+            text-align: right;
+            margin-top: -8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .esqueci-senha a {
+            color: #176087;
+            text-decoration: none;
+        }
+
+        .esqueci-senha a:hover {
+            text-decoration: underline;
+        }
+
         .topo-titulo {
             position: fixed; 
             top: 40px; 
@@ -175,20 +191,24 @@
         <h2>Entrar no Sistema</h2>
         
         <form action="/login_funci" method="POST">
-    <input type="hidden" name="tipo" value="funcionario">
+            <input type="hidden" name="tipo" value="funcionario">
 
-    <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required placeholder="seuemail@cajad.com">
-    </div>
-    
-    <div class="form-group">
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required placeholder="Sua senha secreta">
-    </div>
-    
-    <button type="submit" class="btn-entrar">Entrar</button>
-</form>
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required placeholder="seuemail@cajad.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required placeholder="Sua senha secreta">
+            </div>
+
+            <div class="esqueci-senha">
+                <a href="/recuperar_senha?tipo=funcionario">Esqueceu a senha?</a>
+            </div>
+            
+            <button type="submit" class="btn-entrar">Entrar</button>
+        </form>
         
         <div class="cadastro-link">
             Não tem uma conta? <a href="/cadastro_funci">Cadastre-se aqui</a>
@@ -196,7 +216,6 @@
     </div>
 
         <p style="position:fixed; bottom: 10px; left: 600px; color:gray">CAJAD Construções · Construindo com confiança</p>
-
 
 </body>
 </html>

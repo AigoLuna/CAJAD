@@ -89,6 +89,69 @@ def login_funci():
 
     return render_template('login_funci.html', tipo=tipo_desejado)
 
+@app.route('/recuperar_senha', methods=['GET', 'POST'])
+def recuperar_senha():
+    tipo = request.args.get('tipo') or request.form.get('tipo', 'funcionario')
+
+    if request.method == 'POST':
+        email = request.form.get('email')
+        nova_senha = request.form.get('nova_senha')
+
+        user = usuario.query.filter_by(email=email).first()
+
+        if not user:
+            return f"Erro: O e-mail informado não está registrado no sistema. <a href='/recuperar_senha?tipo={tipo}'>Tentar novamente</a>"
+
+        # Atualiza a senha antiga para a nova senha do usuário no mesmo instante
+        user.senha = generate_password_hash(nova_senha)
+        db.session.commit()
+
+        pagina_login = 'login' if tipo == 'empresa' else 'login_funci'
+        return f"Senha alterada com sucesso! <a href='/{pagina_login}?tipo={tipo}'>Ir para o Login</a>"
+
+    # Renderiza uma página simples de recuperação de senha mantendo o padrão visual
+    return f"""
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>CAJAD Construções - Recuperar Senha</title>
+        <style>
+            body {{ background-color: #f4f7f9; font-family: Arial, sans-serif; margin: 0; padding: 0; }}
+            .container {{ max-width: 400px; margin: 140px auto 40px auto; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }}
+            h2 {{ color: #002b45; text-align: center; margin-bottom: 20px; }}
+            .form-group {{ margin-bottom: 15px; }}
+            .form-group label {{ display: block; margin-bottom: 5px; color: #176087; font-weight: bold; }}
+            .form-group input {{ width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; box-sizing: border-box; }}
+            .btn-enviar {{ width: 100%; background-color: #176087; color: white; border: none; border-radius: 6px; padding: 12px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; }}
+            .btn-enviar:hover {{ background-color: #002b45; }}
+            .voltar {{ text-align: center; margin-top: 15px; }}
+            .voltar a {{ color: #176087; text-decoration: none; font-weight: bold; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Recuperar Senha</h2>
+            <form action="/recuperar_senha" method="POST">
+                <input type="hidden" name="tipo" value="{tipo}">
+                <div class="form-group">
+                    <label for="email">E-mail cadastrado:</label>
+                    <input type="email" id="email" name="email" required placeholder="seuemail@cajad.com">
+                </div>
+                <div class="form-group">
+                    <label for="nova_senha">Nova Senha:</label>
+                    <input type="password" id="nova_senha" name="nova_senha" required placeholder="Digite sua nova senha">
+                </div>
+                <button type="submit" class="btn-enviar">Atualizar Senha</button>
+            </form>
+            <div class="voltar">
+                <a href="/{'login' if tipo == 'empresa' else 'login_funci'}?tipo={tipo}">Voltar ao Login</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
     tipo = request.args.get('tipo', 'empresa') 
